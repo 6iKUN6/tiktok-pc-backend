@@ -1,11 +1,18 @@
-const dbConfig = {
-  mysql: {
-    port: 3306, //数据库端口
-    host: '127.0.0.1', //数据库地址
-    user: 'root', //用户名
-    password: '123456', //数据库密码
-    database: 'video', //数据库名
-    connectionLimit: 10, //链接限制
-  },
-};
-export default dbConfig;
+import { ConfigService } from '@nestjs/config';
+import { SequelizeModuleOptions } from '@nestjs/sequelize';
+import { Dialect } from 'sequelize';
+
+function loadMysqlConfig(configService: ConfigService): SequelizeModuleOptions {
+  return {
+    dialect: 'mysql' as Dialect,
+    host: configService.get('DB_HOST'),
+    port: configService.get('DB_PORT'),
+    username: configService.get('DB_USERNAME'),
+    password: configService.get('DB_PASSWORD'),
+    database: configService.get('DB_DATABASE'),
+    autoLoadModels: true,
+    synchronize: true,
+  };
+}
+
+export default loadMysqlConfig;
