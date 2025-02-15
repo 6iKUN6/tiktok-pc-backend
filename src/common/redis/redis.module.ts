@@ -3,6 +3,7 @@ import { CacheService } from './redis.service';
 import { ConfigService } from '@nestjs/config';
 import loadRedisConfig from '../../config/redisConfig';
 
+// @Global()
 @Module({
   providers: [
     CacheService,
@@ -12,5 +13,6 @@ import loadRedisConfig from '../../config/redisConfig';
       inject: [ConfigService],
     },
   ],
+  exports: [CacheService],
 })
 export class CacheModule {}

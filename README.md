@@ -27,9 +27,7 @@
 
 nest
 
-node v 20.9.0
-
-pnpm
+环境node v 20.9.0 pnpm 9+
 
 端口 8899
 
@@ -39,7 +37,7 @@ mysql v:5.6
 
 ```
 pnpm insatll
-npm run start
+npm run dev
 ```
 
 ### 测试链接

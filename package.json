@@ -38,6 +38,7 @@
     "rxjs": "^7.8.1",
     "sequelize": "^6.37.5",
     "sequelize-typescript": "^2.1.6",
+    "svg-captcha": "^1.4.0",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {

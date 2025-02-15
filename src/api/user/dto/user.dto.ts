@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, MinLength } from 'class-validator';
+import { IsNotEmpty, Length, MinLength } from 'class-validator';
 //检验规则
 export class RegisterDto {
   @IsNotEmpty({
@@ -31,6 +31,22 @@ export class RegisterDto {
     description: '密码',
   })
   password: string;
+
+  @IsNotEmpty({
+    message: 'id不能为空',
+  })
+  @ApiProperty({
+    example: '934e51cfff7b71ffc8ea',
+    description: '验证码id',
+  })
+  id: string;
+
+  @Length(4, 4, { message: '验证码必须4位' })
+  @ApiProperty({
+    example: 'yyds',
+    description: '验证码',
+  })
+  captcha: string;
 }
 
 export class LoginDto {
@@ -42,6 +58,7 @@ export class LoginDto {
     description: '用户名',
   })
   username: string;
+
   @IsNotEmpty({
     message: '密码不能为空',
   })
@@ -53,4 +70,20 @@ export class LoginDto {
     description: '密码',
   })
   password: string;
+
+  @IsNotEmpty({
+    message: 'id不能为空',
+  })
+  @ApiProperty({
+    example: '934e51cfff7b71ffc8ea',
+    description: '验证码id',
+  })
+  id: string;
+
+  @Length(4, 4, { message: '验证码必须4位' })
+  @ApiProperty({
+    example: 'yyds',
+    description: '验证码',
+  })
+  captcha: string;
 }
