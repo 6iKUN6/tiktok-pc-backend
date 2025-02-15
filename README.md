@@ -23,13 +23,11 @@
 1. 账户系统：用户可登录，收藏视频
 2. 可参考常见短视频应用自由增加功能，提升完善度，如点赞、分享、关注、搜索等
 
-
-
 ## 后端搭建
 
 nest
 
-node v  20.9.0
+node v 20.9.0
 
 pnpm
 
@@ -44,15 +42,11 @@ pnpm insatll
 npm run start
 ```
 
-
-
 ### 测试链接
 
 ```
 http://localhost:8899/api/user/findOne?username=zhangsan
 ```
-
-
 
 项目结构
 
@@ -67,3 +61,6 @@ http://localhost:8899/api/user/findOne?username=zhangsan
 ---main.ts			主文件
 ```
 
+entity:数据库模型
+dto:是一种用于数据传输的对象，主要用于减少网络传输和解耦。
+vo:一种值对象，用于封装具有特定含义的值，强调不可变性和等价性

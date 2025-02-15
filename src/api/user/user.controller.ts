@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dto/user.dto';
+import { RegisterDto, LoginDto } from './dto/user.dto';
+import { RegisterVo, LoginVo } from './vo/user.vo';
 import { ApiOperation, ApiTags, ApiOkResponse } from '@nestjs/swagger';
 
 @ApiTags('用户模块')
@@ -12,29 +13,23 @@ export class UserController {
     summary: '添加用户', // 接口描述信息
   })
   @ApiOkResponse({
-    description: '返回实例',
-    type: CreateUserDto,
+    description: '返回示例',
+    type: RegisterVo,
   })
   @Post('register')
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  register(@Body() registerDto: RegisterDto) {
+    return this.userService.register(registerDto);
   }
 
-  // @Get()
-  // async findAll(): Promise<UserDto[]> {
-  //   return this.userService.findAll();
-  // }
-
-  // // 已有的方法，用于获取用户信息
-  // @Get('/userInfo')
-  // getUserInfo(): string {
-  //   // return this.userService.getUserInfo();
-  //   return 'wdnmd';
-  // }
-
-  // // 新增的方法，用于根据用户名查询用户信息
-  // @Post()
-  // async create(@Body() userDto: UserDto): Promise<UserDto> {
-  //   return userDto;
-  // }
+  @ApiOperation({
+    summary: '用户登录',
+  })
+  @ApiOkResponse({
+    description: '返回示例',
+    type: LoginVo,
+  })
+  @Post('login')
+  login(@Body() loginDto: LoginDto) {
+    return this.userService.login(loginDto);
+  }
 }

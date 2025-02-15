@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateUserVo {
+export class RegisterVo {
   @ApiProperty({ example: 200 })
   code: number;
   @ApiProperty({ example: '注册成功' })
@@ -9,10 +9,10 @@ export class CreateUserVo {
   describe: string;
 }
 
-export class LoginUserVo {
+export class LoginVo {
   @ApiProperty({ example: 200 })
   code: number;
-  @ApiProperty({ example: '登录成功' })
+  @ApiProperty({ example: 'eyJhbG...(加密后的密码)' })
   data: string;
   @ApiProperty({ example: '请求成功' })
   describe: string;
