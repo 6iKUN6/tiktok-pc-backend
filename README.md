@@ -82,19 +82,13 @@ src/
 
 1. **创建开发分支**
 
-   bash
-
-   复制
-
    ```
    git checkout -b <新分支名>
    ```
 
+   然后在这个分支下写代码，写完之后git add .
+
 2. **代码提交**
-
-   bash
-
-   复制
 
    ```
    git add .
@@ -103,23 +97,26 @@ src/
 
 3. **提交信息规范**
 
-   - 选择变更类型（遵循commitlint配置）
-   - 输入规范的提交描述
+   - 然后下面是你这次开发的一些类型选择，新功能(feat)，修bug(fix)这些，具体看commitlint.config.cjs
+   - <img src="public/img/image.png"/>
+   - 选完之后输入提交信息(也就是你平时git commit -m “)的部分
+   - <img src="public/img/image4.png"/>
 
-4. **代码校验流程**
+   然后后面的也基本没啥，一直回车就行了
+   过程中可能会不给提交，因为要走husky的钩子，eslint或者prettier的校验没过或者代码有报错啥的，解决后再走一遍流程就行。
 
-   - 自动触发husky钩子
-   - 通过ESLint/Prettier校验
-   - 解决测试用例问题（如删除失败的spec文件）
+   比如这个，就是jest的一个报错，测试用例有问题，我这里直接把spec文件删了。
 
-5. **推送代码**
+   <img src="public/img/image2.png"/>
 
-   bash
+4. **推送代码**
 
-   复制
+   如果没问题的话，提交完，直接push到远程就行了。
 
    ```
    git push origin <分支名>
    ```
 
+> 不要嫌弃步骤繁琐，主要是为了代码质量和提交历史记录
+>
 > **注意事项**：提交前需确保通过所有代码质量检查，保持提交历史的清晰规范。
