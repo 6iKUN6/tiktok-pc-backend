@@ -9,13 +9,14 @@ import {
 import { Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-
+import { CacheService } from 'src/common/redis/redis.service';
 @Injectable()
 export class UserGuard implements CanActivate {
   constructor(
     private jwtService: JwtService, // JWT服务，用于验证和解析JWT token
     private configService: ConfigService, // 配置服务，用于获取JWT_SECRET
     private reflector: Reflector,
+    private cacheService: CacheService, //redis
   ) {}
 
   /**
@@ -41,12 +42,27 @@ export class UserGuard implements CanActivate {
     if (!token) {
       throw new HttpException('验证不通过', HttpStatus.FORBIDDEN); // 如果没有token，抛出验证不通过异常
     }
+
+    const realToken = await this.cacheService.get(token);
     try {
-      const payload = await this.jwtService.verifyAsync(token, {
+      const payload = await this.jwtService.verifyAsync(realToken, {
         secret: this.configService.get('JWT_SECRET'), // 使用JWT_SECRET解析token
       });
+      //获取token过期时间
+      const { exp } = payload;
+      // console.log('payload', payload, payload.exp);
+      const nowTime = Math.floor(new Date().getTime() / 1000);
+      const isExpired = exp - nowTime < 30; // 判断token是否过期
+      // console.log(isExpired, exp - nowTime);
+
+      if (isExpired) {
+        const newPayLoad = { username: payload.username, sub: payload.sub }; //{username,id}
+        const newToken = await this.jwtService.signAsync(newPayLoad);
+        this.cacheService.set(token, newToken, 7200);
+      }
       request['user'] = payload; // 将解析后的用户信息存储在请求对象中
-    } catch {
+    } catch (error) {
+      // console.log('error', error);
       throw new HttpException('token验证失败', HttpStatus.FORBIDDEN); // token验证失败，抛出异常
     }
 

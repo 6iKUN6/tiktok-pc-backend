@@ -45,9 +45,8 @@ export class UserController {
     return this.userService.getCaptcha();
   }
 
-  // @UseGuards(UserGuard)
-  // @Post('test')
-  // t() {
-  //   return 1;
-  // }
+  @Post('test')
+  t() {
+    return 1;
+  }
 }
